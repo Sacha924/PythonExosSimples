@@ -18,7 +18,7 @@ def Exo3():
         nombre = int(input("saisir un entier positif composé de cinq chiffres différents : "))
     except:
         pass
-    finally:
+    else:
         mySet = set()
         for chiffre in str(nombre):
             mySet.add(chiffre)
@@ -48,7 +48,7 @@ def Exo5():
     try:
         nombre = int(input("saisissez un nombre : "))
     except: pass
-    finally :
+    else :
         if(nombre <0) : print("Saisie invalide")
         else :
             nombreSaisi = nombre
