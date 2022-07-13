@@ -100,7 +100,7 @@ def Exo7():
     for loop in range(heigth):
         line = "*"+ "*"*2*loop
         print("".rjust(heigth-loop), line)
-Exo7()
+#Exo7()
 
 """Exercice 08
 Écrire un programme en langage python qui permet de trouver les nombres qui sont divisibles par 7 ,multiple de 3 et multiple de 5, entre deux bornes choisit par l’utilisateur (tous deux inclus).L’utilisateur doit saisir deux nombres positifs et le deuxième nombre doit être supérieur au premier
@@ -108,3 +108,43 @@ Dans le même programme:
 Afficher le nombre des nombres trouvés
 Afficher la somme des nombres trouvés
 Afficher la liste des nombres trouvés"""
+
+def Exo8():
+    # je pourrais faire un try catch pour éviter que l'utilisateur saisisse du texte, mais bon déjà fait dans d'autres exos. 
+    bornInf = int(input("saisir la borne inférieure : "))
+    bornSup = int(input("saisir la borne supérieur : "))
+    if(bornSup<bornInf):
+        while(bornSup<bornInf):
+            print("veuillez saisir une borne supérieure > borne inférieure, borne sup actuelle : %d, borne inf actuelle : %d" %(bornSup,bornInf))
+            bornSup = int(input("saisir la borne supérieur : "))
+    for number in range(bornInf,bornSup+1):
+        if(number%3==0 and number%5==0 and number%7==0):
+            print(number)
+#Exo8()
+
+"""Exercice 10
+Écrire un programme en langage python qui permet d’afficher les N premiers termes d’une suite dite "Suite de Fibonacci".
+Le nombre N est fournit par l’utilisateur.
+Il s’agit d’une suite de nombres dont chaque terme est égal à la somme des deux termes qui le précèdent.
+Ses deux premiers termes sont 0 et 1, et ensuite, chaque terme successif est la somme des deux termes précédents. Ainsi 0+1=1, 1+1=2, 1+2=3, 2+3=5, 3+5=8, etc.
+"""
+
+def Exo9():
+    N = int(input("saisir le nombre de termes de la suite de Fibonacci : "))
+    F_0,F_1 = 0 ,1   #terme à n = 0 initiallement   #terme à n = 1 initiallement
+    print("F_0 = ",F_0 , "\n" , "F_1 = ",F_1, sep="")
+    for loop in range(2,N+1):
+        memory = F_1
+        F_1 = F_0+F_1   #create the term F_n
+        F_0 = memory    #the former F_n become F_n-1
+        print("F_%d = %d" % (loop,F_1))
+#Exo9()
+
+"""recursive way : """
+def Recursive_fib(n):
+    if(n==0 or n==1):
+        return n
+    return Recursive_fib(n-1)+Recursive_fib(n-2)
+n = 12
+for i in range(n+1):
+    print(Recursive_fib(i))
