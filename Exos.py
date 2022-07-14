@@ -1,6 +1,14 @@
 """Exercice 01
 Écrire un programme en langage python qui affiche les  nombres entiers premiers parmi les nombres de 1 à 100"""
 
+from distutils.log import error
+from regex import E
+from random import randint
+
+from sqlalchemy import false, true
+
+
+
 def getNbDivisor(number):
     return [d for d in range(1,100)if number%d==0]      
 def Ex1():
@@ -148,3 +156,127 @@ def Recursive_fib(n):
 n = 12
 for i in range(n+1):
     print(Recursive_fib(i))
+
+
+
+"""Exercice 04
+Écrivez un programme en python, qui demande à l’utilisateur de: Saisir deux nombres et qui doit trouver le plus grand diviseur commun entre ces deux nombres.
+"""
+def Ex4():
+    a,b = int(input("saisir a : ")),int(input("saisir a : "))
+    for loop in range (1,min(a,b)+1):
+        if(a%loop==0 and b%loop==0):
+            diviseur = loop
+    print(diviseur)
+    
+#Ex4()
+
+"""Exercice 05
+Écrire un jeu dans lequel python choisit aléatoirement un nombre entre 0 et 99.
+L’ordinateur choisit au hasard un nombre mystère. Le joueur propose une réponse.
+L’ordinateur répond “le nombre à trouver est plus grand” ou “le nombre à trouver est plus petit” ou “bravo, c’est le bon nombre !”
+Pour compliquer le jeu, l’ordinateur a le droit de mentir de temps en temps. Environ une fois sur quatre l’ordinateur donne la mauvaise indication “plus grand” ou “plus petit”."""
+def Ex5():
+    value = randint(0, 99)
+    repPlayer = int(input("saisissez une valeur : "))
+    while (repPlayer != value):
+        if(randint(0,3)==0): lie = True
+        else : lie = False
+        
+        if(repPlayer>value):
+            if(lie): print("la valeur recherchée est plus grande")
+            else : print("la valeur recherchée est plus petite")
+        if(repPlayer<value):
+            if(lie): print("la valeur recherchée est plus petite")
+            else : print("la valeur recherchée est plus grande")
+        
+        repPlayer = int(input("saisissez une valeur : "))
+    print("congrats ! %d is the good answer" % value)
+#Ex5()
+
+
+"""hangman game"""
+import random
+HANGMAN_PICS = ['''
+    +---+
+        |
+        |
+        |
+       ===''', '''
+    +---+
+    O   |
+        |
+        |
+       ===''', '''
+    +---+
+    O   |
+    |   |
+        |
+       ===''', '''
+    +---+
+    O   |
+   /|   |
+        |
+       ===''', '''
+    +---+
+    O   |
+   /|\  |
+        |
+       ===''', '''
+    +---+
+    O   |
+   /|\  |
+   /    |
+       ===''', '''
+    +---+
+    O   |
+   /|\  |
+   / \  |
+       ===''']
+words = 'ant baboon badger bat bear beaver camel cat clam cobra cougar coyote crow deer dog donkey duck eagle ferret fox frog goat goose hawk lion lizard llama mole monkey moose mouse mule newt otter owl panda parrot pigeon python rabbit ram rat raven rhino salmon seal shark sheep skunk sloth snake spider stork swan tiger toad trout turkey turtle weasel whale wolf wombat zebra'.split()
+
+def HangmanGame():
+    alive,finished,alreadySaid,myLetter,errorCount = True,False,[],"",0
+    letterSelectedWord = list(words[randint(0,len(words)-1)])
+    currentRepr = letterSelectedWord[0] +"_" * (len(letterSelectedWord)-2)+letterSelectedWord[len(letterSelectedWord)-1]
+    while(alive and not finished):
+        print(currentRepr)
+        print(HANGMAN_PICS[errorCount])
+        if(len(alreadySaid)!=0):
+            print("letters you already said : %s" % alreadySaid)
+        while(myLetter in alreadySaid or myLetter == ""):
+            myLetter = input("Enter a letter : ")
+        alreadySaid.append(myLetter)
+        if(myLetter in letterSelectedWord):
+            indexs =  [i for i in range(len(letterSelectedWord)) if myLetter == letterSelectedWord[i]]
+            currentRepr = list(currentRepr)
+            for index in indexs :
+                currentRepr[index] = myLetter
+            currentRepr = "".join(currentRepr)
+        else:
+            errorCount += 1
+            print(HANGMAN_PICS[errorCount])
+            if(errorCount==len(HANGMAN_PICS)-1):
+                alive = False           
+        if(currentRepr.count("_") == 0):
+            finished = True
+    if(finished):
+        print("You WIN")
+    else:
+        print("You LOSE")
+    print("the word was %s" % "".join(letterSelectedWord))
+HangmanGame()
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""travailler sur les méthodes de tri"""
